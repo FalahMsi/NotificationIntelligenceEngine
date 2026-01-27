@@ -1,0 +1,157 @@
+/*
+  Localizable.strings (English)
+  Nubti - Kuwait Shift Scheduling App
+
+  IMPORTANT: This file is the single source of truth for English localization.
+  All hardcoded English strings should be migrated here.
+
+  Format: "key" = "value";
+  Use %@ for string substitution, %d for integers, %f for floats
+*/
+
+// MARK: - Common
+
+"common.today" = "Today";
+"common.tomorrow" = "Tomorrow";
+"common.later" = "Later";
+"common.cancel" = "Cancel";
+"common.confirm" = "Confirm";
+"common.save" = "Save";
+"common.delete" = "Delete";
+"common.edit" = "Edit";
+"common.done" = "Done";
+"common.close" = "Close";
+"common.back" = "Back";
+"common.next" = "Next";
+"common.previous" = "Previous";
+"common.yes" = "Yes";
+"common.no" = "No";
+"common.ok" = "OK";
+"common.error" = "Error";
+"common.success" = "Success";
+"common.loading" = "Loading...";
+"common.retry" = "Retry";
+"common.noData" = "No data";
+
+// MARK: - Shift Phases
+
+"phase.morning" = "Morning Shift";
+"phase.evening" = "Evening Shift";
+"phase.night" = "Night Shift";
+"phase.off" = "Day Off";
+"phase.firstOff" = "First Off";
+"phase.secondOff" = "Second Off";
+"phase.weekend" = "Weekend";
+"phase.leave" = "Leave";
+
+// MARK: - Shift Phase Labels (Short)
+
+"phaseLabel.morning" = "morning";
+"phaseLabel.evening" = "evening";
+"phaseLabel.night" = "night";
+"phaseLabel.off" = "off";
+"phaseLabel.weekend" = "weekend";
+"phaseLabel.leave" = "leave";
+
+// MARK: - Shift Systems
+
+"system.threeShiftTwoOff" = "3 Shifts / 2 Off System";
+"system.twentyFourFortyEight" = "24/48 System (1 Work, 2 Off)";
+"system.twoWorkFourOff" = "2 Work / 4 Off (48/96)";
+"system.standardMorning" = "Standard Morning";
+"system.eightHourShift" = "8-Hour Rotation (2M, 2E, 2N, 2Off)";
+
+// MARK: - Calendar
+
+"calendar.title" = "Calendar";
+"calendar.today" = "Today";
+"calendar.selectYear" = "Select Year";
+"calendar.weekdays.sat" = "S";
+"calendar.weekdays.sun" = "S";
+"calendar.weekdays.mon" = "M";
+"calendar.weekdays.tue" = "T";
+"calendar.weekdays.wed" = "W";
+"calendar.weekdays.thu" = "T";
+"calendar.weekdays.fri" = "F";
+
+// MARK: - Today Hero Card
+
+"hero.shiftCompleted" = "Shift Completed ✅";
+"hero.startsIn" = "Starts in";
+"hero.remaining" = "Remaining";
+"hero.dayOff" = "Day Off 🌙";
+"hero.onLeave" = "On Leave 📋";
+"hero.noData" = "No data";
+"hero.hours" = "h";
+"hero.minutes" = "m";
+
+// MARK: - Notifications
+
+"notification.shiftStart.title" = "Shift Starting";
+"notification.shiftStart.body" = "Your shift is starting now. Time to work! 💪";
+"notification.shiftEnd.title" = "Shift Ending";
+"notification.shiftEnd.body" = "Your shift has ended. Enjoy your time! 🎉";
+
+"notification.preDay.title" = "Shift Reminder";
+"notification.preDay.bodyToday" = "You have a %@ shift today starting at %@.";
+"notification.preDay.bodyTomorrow" = "You have a %@ shift tomorrow starting at %@.";
+
+"notification.punchIn.title" = "Punch Reminder";
+"notification.punchIn.body" = "Don't forget to punch in! 👆";
+"notification.punchOut.title" = "Punch Reminder";
+"notification.punchOut.body" = "Don't forget to punch out! 👋";
+
+"notification.test.title" = "Test Notification";
+"notification.test.body" = "Notifications are working correctly! ✅";
+
+// MARK: - Settings
+
+"settings.title" = "Settings";
+"settings.notifications" = "Notifications";
+"settings.language" = "Language";
+"settings.shiftSystem" = "Shift System";
+"settings.about" = "About";
+
+// MARK: - Manual Leave
+
+"leave.title" = "Leaves";
+"leave.addNew" = "Add Leave";
+"leave.startDate" = "Start Date";
+"leave.endDate" = "End Date";
+"leave.type" = "Leave Type";
+"leave.notes" = "Notes";
+"leave.deleteConfirm" = "Delete this leave?";
+
+// MARK: - Shift Verification Wizard
+
+"wizard.title" = "Verify Shift Schedule";
+"wizard.message" = "Your shift schedule needs to be verified. What shift do you have today?";
+"wizard.confirm" = "Confirm";
+"wizard.later" = "Later";
+
+// MARK: - Errors
+
+"error.generic" = "An error occurred. Please try again.";
+"error.noPermission" = "No notification permission";
+"error.networkError" = "Network error";
+"error.dataCorruption" = "Data corruption detected";
+
+// MARK: - Holidays
+
+"holiday.nationalDay" = "National Day";
+"holiday.liberationDay" = "Liberation Day";
+"holiday.newYear" = "New Year's Day";
+"holiday.eidFitr" = "Eid al-Fitr";
+"holiday.eidAdha" = "Eid al-Adha";
+"holiday.islamicNewYear" = "Islamic New Year";
+"holiday.prophetBirthday" = "Prophet's Birthday";
+"holiday.israMiraj" = "Isra and Mi'raj";
+
+// MARK: - Activity Log Messages
+
+"log.manualOverrideSet" = "Changed %@ to %@";
+"log.manualOverrideCleared" = "Cleared override for %@";
+"log.notificationScheduled" = "Notifications scheduled";
+"log.notificationCancelled" = "Notifications cancelled";
+"log.dataRecovered" = "Data recovered";
+"log.dataMigrated" = "Data migrated from v%d to v%d";

@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(xcodebuild:*)",
+      "Bash(grep:*)",
+      "Bash(xargs ls:*)",
+      "Bash(ruby -e:*)",
+      "Bash(open:*)",
+      "Bash(uuidgen:*)",
+      "Bash(xcrun simctl:*)",
+      "Bash(find:*)",
+      "Bash(xargs -I {} sh -c 'echo \"\"=== {} ===\"\" && head -20 {}')",
+      "Bash(plutil:*)",
+      "Bash(python3:*)",
+      "Bash(md5:*)",
+      "Bash(swift test:*)",
+      "Bash(swift build:*)",
+      "Bash(swift package clean:*)",
+      "Bash(npm install)",
+      "Bash(npm test:*)",
+      "Bash(./gradlew test:*)",
+      "Bash(gradle test:*)",
+      "Bash(brew list:*)",
+      "Bash(npm run build:*)"
+    ]
+  }
+}

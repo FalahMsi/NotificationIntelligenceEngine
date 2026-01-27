@@ -1,0 +1,537 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Notification Intelligence Engine - Cross-Platform Test Vectors",
+  "version": "1.0.0",
+  "vectors": [
+    {
+      "id": "V001_basic_next_event_today",
+      "description": "Basic case: next event is today, no lead time",
+      "timezone": "America/New_York",
+      "referenceTimeISO": "2024-03-15T10:00:00-04:00",
+      "triggerLeadTimeMinutes": 0,
+      "lookaheadDays": 7,
+      "events": [
+        {
+          "id": "event-1",
+          "startTimeISO": "2024-03-15T14:00:00-04:00",
+          "endTimeISO": "2024-03-15T15:00:00-04:00"
+        }
+      ],
+      "skipEventIds": [],
+      "expected": {
+        "expectedEventId": "event-1",
+        "expectedDayLabel": "today",
+        "expectedTriggerTimeISO": "2024-03-15T14:00:00-04:00"
+      }
+    },
+    {
+      "id": "V002_basic_next_event_tomorrow",
+      "description": "Next event is tomorrow",
+      "timezone": "America/New_York",
+      "referenceTimeISO": "2024-03-15T22:00:00-04:00",
+      "triggerLeadTimeMinutes": 0,
+      "lookaheadDays": 7,
+      "events": [
+        {
+          "id": "event-1",
+          "startTimeISO": "2024-03-16T09:00:00-04:00"
+        }
+      ],
+      "skipEventIds": [],
+      "expected": {
+        "expectedEventId": "event-1",
+        "expectedDayLabel": "tomorrow",
+        "expectedTriggerTimeISO": "2024-03-16T09:00:00-04:00"
+      }
+    },
+    {
+      "id": "V003_event_later_than_tomorrow",
+      "description": "Next event is 3 days out - should return 'later'",
+      "timezone": "Europe/London",
+      "referenceTimeISO": "2024-03-15T10:00:00+00:00",
+      "triggerLeadTimeMinutes": 0,
+      "lookaheadDays": 7,
+      "events": [
+        {
+          "id": "event-future",
+          "startTimeISO": "2024-03-18T10:00:00+00:00"
+        }
+      ],
+      "skipEventIds": [],
+      "expected": {
+        "expectedEventId": "event-future",
+        "expectedDayLabel": "later",
+        "expectedTriggerTimeISO": "2024-03-18T10:00:00+00:00"
+      }
+    },
+    {
+      "id": "V004_lead_time_shifts_trigger",
+      "description": "30-minute lead time shifts trigger time earlier",
+      "timezone": "America/Los_Angeles",
+      "referenceTimeISO": "2024-03-15T08:00:00-07:00",
+      "triggerLeadTimeMinutes": 30,
+      "lookaheadDays": 7,
+      "events": [
+        {
+          "id": "event-1",
+          "startTimeISO": "2024-03-15T09:00:00-07:00"
+        }
+      ],
+      "skipEventIds": [],
+      "expected": {
+        "expectedEventId": "event-1",
+        "expectedDayLabel": "today",
+        "expectedTriggerTimeISO": "2024-03-15T08:30:00-07:00"
+      }
+    },
+    {
+      "id": "V005_lead_time_crosses_midnight_dayLabel_based_on_trigger",
+      "description": "Lead time causes trigger to fall on previous day; dayLabel reflects trigger day",
+      "timezone": "Asia/Tokyo",
+      "referenceTimeISO": "2024-03-15T23:00:00+09:00",
+      "triggerLeadTimeMinutes": 120,
+      "lookaheadDays": 7,
+      "events": [
+        {
+          "id": "event-early-tomorrow",
+          "startTimeISO": "2024-03-16T01:00:00+09:00"
+        }
+      ],
+      "skipEventIds": [],
+      "expected": {
+        "expectedEventId": "event-early-tomorrow",
+        "expectedDayLabel": "today",
+        "expectedTriggerTimeISO": "2024-03-15T23:00:00+09:00"
+      }
+    },
+    {
+      "id": "V006_skip_predicate_filters_first_event",
+      "description": "First event is skipped, second event is selected",
+      "timezone": "America/New_York",
+      "referenceTimeISO": "2024-03-15T10:00:00-04:00",
+      "triggerLeadTimeMinutes": 0,
+      "lookaheadDays": 7,
+      "events": [
+        {
+          "id": "event-skip-me",
+          "startTimeISO": "2024-03-15T12:00:00-04:00"
+        },
+        {
+          "id": "event-select-me",
+          "startTimeISO": "2024-03-15T14:00:00-04:00"
+        }
+      ],
+      "skipEventIds": ["event-skip-me"],
+      "expected": {
+        "expectedEventId": "event-select-me",
+        "expectedDayLabel": "today",
+        "expectedTriggerTimeISO": "2024-03-15T14:00:00-04:00"
+      }
+    },
+    {
+      "id": "V007_all_events_skipped_returns_null",
+      "description": "All events are skipped, returns null",
+      "timezone": "America/New_York",
+      "referenceTimeISO": "2024-03-15T10:00:00-04:00",
+      "triggerLeadTimeMinutes": 0,
+      "lookaheadDays": 7,
+      "events": [
+        {
+          "id": "event-1",
+          "startTimeISO": "2024-03-15T12:00:00-04:00"
+        },
+        {
+          "id": "event-2",
+          "startTimeISO": "2024-03-16T12:00:00-04:00"
+        }
+      ],
+      "skipEventIds": ["event-1", "event-2"],
+      "expected": {
+        "expectedEventId": null,
+        "expectedDayLabel": null,
+        "expectedTriggerTimeISO": null
+      }
+    },
+    {
+      "id": "V008_no_events_returns_null",
+      "description": "Empty event list returns null",
+      "timezone": "UTC",
+      "referenceTimeISO": "2024-03-15T10:00:00Z",
+      "triggerLeadTimeMinutes": 0,
+      "lookaheadDays": 7,
+      "events": [],
+      "skipEventIds": [],
+      "expected": {
+        "expectedEventId": null,
+        "expectedDayLabel": null,
+        "expectedTriggerTimeISO": null
+      }
+    },
+    {
+      "id": "V009_event_at_exact_reference_time_not_selected",
+      "description": "Event at exact referenceTime is NOT selected (must be strictly greater)",
+      "timezone": "America/New_York",
+      "referenceTimeISO": "2024-03-15T12:00:00-04:00",
+      "triggerLeadTimeMinutes": 0,
+      "lookaheadDays": 7,
+      "events": [
+        {
+          "id": "event-at-ref",
+          "startTimeISO": "2024-03-15T12:00:00-04:00"
+        },
+        {
+          "id": "event-after-ref",
+          "startTimeISO": "2024-03-15T13:00:00-04:00"
+        }
+      ],
+      "skipEventIds": [],
+      "expected": {
+        "expectedEventId": "event-after-ref",
+        "expectedDayLabel": "today",
+        "expectedTriggerTimeISO": "2024-03-15T13:00:00-04:00"
+      }
+    },
+    {
+      "id": "V010_event_before_reference_time_not_selected",
+      "description": "Past events are ignored, only future events considered",
+      "timezone": "Europe/Berlin",
+      "referenceTimeISO": "2024-03-15T14:00:00+01:00",
+      "triggerLeadTimeMinutes": 0,
+      "lookaheadDays": 7,
+      "events": [
+        {
+          "id": "event-past",
+          "startTimeISO": "2024-03-15T10:00:00+01:00"
+        },
+        {
+          "id": "event-future",
+          "startTimeISO": "2024-03-15T16:00:00+01:00"
+        }
+      ],
+      "skipEventIds": [],
+      "expected": {
+        "expectedEventId": "event-future",
+        "expectedDayLabel": "today",
+        "expectedTriggerTimeISO": "2024-03-15T16:00:00+01:00"
+      }
+    },
+    {
+      "id": "V011_outside_lookahead_window_returns_null",
+      "description": "Event beyond lookahead window is not selected",
+      "timezone": "America/New_York",
+      "referenceTimeISO": "2024-03-15T10:00:00-04:00",
+      "triggerLeadTimeMinutes": 0,
+      "lookaheadDays": 3,
+      "events": [
+        {
+          "id": "event-too-far",
+          "startTimeISO": "2024-03-20T10:00:00-04:00"
+        }
+      ],
+      "skipEventIds": [],
+      "expected": {
+        "expectedEventId": null,
+        "expectedDayLabel": null,
+        "expectedTriggerTimeISO": null
+      }
+    },
+    {
+      "id": "V012_event_at_edge_of_lookahead_included",
+      "description": "Event exactly at end of lookahead window is included",
+      "timezone": "America/New_York",
+      "referenceTimeISO": "2024-03-15T10:00:00-04:00",
+      "triggerLeadTimeMinutes": 0,
+      "lookaheadDays": 3,
+      "events": [
+        {
+          "id": "event-at-edge",
+          "startTimeISO": "2024-03-18T10:00:00-04:00"
+        }
+      ],
+      "skipEventIds": [],
+      "expected": {
+        "expectedEventId": "event-at-edge",
+        "expectedDayLabel": "later",
+        "expectedTriggerTimeISO": "2024-03-18T10:00:00-04:00"
+      }
+    },
+    {
+      "id": "V013_multiple_events_selects_earliest",
+      "description": "Multiple future events - selects the one with earliest startTime",
+      "timezone": "America/Chicago",
+      "referenceTimeISO": "2024-03-15T08:00:00-05:00",
+      "triggerLeadTimeMinutes": 0,
+      "lookaheadDays": 7,
+      "events": [
+        {
+          "id": "event-later",
+          "startTimeISO": "2024-03-15T14:00:00-05:00"
+        },
+        {
+          "id": "event-earliest",
+          "startTimeISO": "2024-03-15T10:00:00-05:00"
+        },
+        {
+          "id": "event-latest",
+          "startTimeISO": "2024-03-16T09:00:00-05:00"
+        }
+      ],
+      "skipEventIds": [],
+      "expected": {
+        "expectedEventId": "event-earliest",
+        "expectedDayLabel": "today",
+        "expectedTriggerTimeISO": "2024-03-15T10:00:00-05:00"
+      }
+    },
+    {
+      "id": "V014_timezone_conversion_correct",
+      "description": "Event in different timezone than config - timestamps normalized correctly",
+      "timezone": "America/New_York",
+      "referenceTimeISO": "2024-03-15T12:00:00-04:00",
+      "triggerLeadTimeMinutes": 0,
+      "lookaheadDays": 7,
+      "events": [
+        {
+          "id": "event-utc",
+          "startTimeISO": "2024-03-15T20:00:00Z"
+        }
+      ],
+      "skipEventIds": [],
+      "expected": {
+        "expectedEventId": "event-utc",
+        "expectedDayLabel": "today",
+        "expectedTriggerTimeISO": "2024-03-15T16:00:00-04:00"
+      }
+    },
+    {
+      "id": "V015_dst_spring_forward",
+      "description": "DST spring forward - event after DST transition",
+      "timezone": "America/New_York",
+      "referenceTimeISO": "2024-03-10T01:00:00-05:00",
+      "triggerLeadTimeMinutes": 0,
+      "lookaheadDays": 1,
+      "events": [
+        {
+          "id": "event-after-dst",
+          "startTimeISO": "2024-03-10T10:00:00-04:00"
+        }
+      ],
+      "skipEventIds": [],
+      "expected": {
+        "expectedEventId": "event-after-dst",
+        "expectedDayLabel": "today",
+        "expectedTriggerTimeISO": "2024-03-10T10:00:00-04:00"
+      }
+    },
+    {
+      "id": "V016_dst_fall_back",
+      "description": "DST fall back - event after DST transition",
+      "timezone": "America/New_York",
+      "referenceTimeISO": "2024-11-03T01:00:00-04:00",
+      "triggerLeadTimeMinutes": 0,
+      "lookaheadDays": 1,
+      "events": [
+        {
+          "id": "event-after-dst",
+          "startTimeISO": "2024-11-03T10:00:00-05:00"
+        }
+      ],
+      "skipEventIds": [],
+      "expected": {
+        "expectedEventId": "event-after-dst",
+        "expectedDayLabel": "today",
+        "expectedTriggerTimeISO": "2024-11-03T10:00:00-05:00"
+      }
+    },
+    {
+      "id": "V017_large_lead_time_moves_trigger_two_days_back",
+      "description": "Large lead time (48 hours) moves trigger back significantly",
+      "timezone": "UTC",
+      "referenceTimeISO": "2024-03-13T10:00:00Z",
+      "triggerLeadTimeMinutes": 2880,
+      "lookaheadDays": 7,
+      "events": [
+        {
+          "id": "event-far",
+          "startTimeISO": "2024-03-18T10:00:00Z"
+        }
+      ],
+      "skipEventIds": [],
+      "expected": {
+        "expectedEventId": "event-far",
+        "expectedDayLabel": "later",
+        "expectedTriggerTimeISO": "2024-03-16T10:00:00Z"
+      }
+    },
+    {
+      "id": "V018_midnight_boundary_today",
+      "description": "Event just before midnight is still 'today'",
+      "timezone": "America/New_York",
+      "referenceTimeISO": "2024-03-15T10:00:00-04:00",
+      "triggerLeadTimeMinutes": 0,
+      "lookaheadDays": 7,
+      "events": [
+        {
+          "id": "event-late-night",
+          "startTimeISO": "2024-03-15T23:59:00-04:00"
+        }
+      ],
+      "skipEventIds": [],
+      "expected": {
+        "expectedEventId": "event-late-night",
+        "expectedDayLabel": "today",
+        "expectedTriggerTimeISO": "2024-03-15T23:59:00-04:00"
+      }
+    },
+    {
+      "id": "V019_midnight_boundary_tomorrow",
+      "description": "Event at midnight is 'tomorrow' (next day)",
+      "timezone": "America/New_York",
+      "referenceTimeISO": "2024-03-15T10:00:00-04:00",
+      "triggerLeadTimeMinutes": 0,
+      "lookaheadDays": 7,
+      "events": [
+        {
+          "id": "event-midnight",
+          "startTimeISO": "2024-03-16T00:00:00-04:00"
+        }
+      ],
+      "skipEventIds": [],
+      "expected": {
+        "expectedEventId": "event-midnight",
+        "expectedDayLabel": "tomorrow",
+        "expectedTriggerTimeISO": "2024-03-16T00:00:00-04:00"
+      }
+    },
+    {
+      "id": "V020_skip_multiple_select_third",
+      "description": "First two events skipped, third selected",
+      "timezone": "Europe/Paris",
+      "referenceTimeISO": "2024-03-15T08:00:00+01:00",
+      "triggerLeadTimeMinutes": 15,
+      "lookaheadDays": 7,
+      "events": [
+        {
+          "id": "event-1",
+          "startTimeISO": "2024-03-15T09:00:00+01:00"
+        },
+        {
+          "id": "event-2",
+          "startTimeISO": "2024-03-15T10:00:00+01:00"
+        },
+        {
+          "id": "event-3",
+          "startTimeISO": "2024-03-15T11:00:00+01:00"
+        }
+      ],
+      "skipEventIds": ["event-1", "event-2"],
+      "expected": {
+        "expectedEventId": "event-3",
+        "expectedDayLabel": "today",
+        "expectedTriggerTimeISO": "2024-03-15T10:45:00+01:00"
+      }
+    },
+    {
+      "id": "V021_event_with_end_time",
+      "description": "Event with endTime - endTime passed through correctly",
+      "timezone": "America/New_York",
+      "referenceTimeISO": "2024-03-15T10:00:00-04:00",
+      "triggerLeadTimeMinutes": 0,
+      "lookaheadDays": 7,
+      "events": [
+        {
+          "id": "event-with-end",
+          "startTimeISO": "2024-03-15T14:00:00-04:00",
+          "endTimeISO": "2024-03-15T15:30:00-04:00"
+        }
+      ],
+      "skipEventIds": [],
+      "expected": {
+        "expectedEventId": "event-with-end",
+        "expectedDayLabel": "today",
+        "expectedTriggerTimeISO": "2024-03-15T14:00:00-04:00",
+        "expectedEndTimeISO": "2024-03-15T15:30:00-04:00"
+      }
+    },
+    {
+      "id": "V022_reference_at_midnight",
+      "description": "Reference time at exactly midnight",
+      "timezone": "America/New_York",
+      "referenceTimeISO": "2024-03-15T00:00:00-04:00",
+      "triggerLeadTimeMinutes": 0,
+      "lookaheadDays": 7,
+      "events": [
+        {
+          "id": "event-morning",
+          "startTimeISO": "2024-03-15T08:00:00-04:00"
+        }
+      ],
+      "skipEventIds": [],
+      "expected": {
+        "expectedEventId": "event-morning",
+        "expectedDayLabel": "today",
+        "expectedTriggerTimeISO": "2024-03-15T08:00:00-04:00"
+      }
+    },
+    {
+      "id": "V023_reference_just_before_midnight",
+      "description": "Reference time just before midnight, event after midnight",
+      "timezone": "America/New_York",
+      "referenceTimeISO": "2024-03-15T23:59:00-04:00",
+      "triggerLeadTimeMinutes": 0,
+      "lookaheadDays": 7,
+      "events": [
+        {
+          "id": "event-after-midnight",
+          "startTimeISO": "2024-03-16T00:05:00-04:00"
+        }
+      ],
+      "skipEventIds": [],
+      "expected": {
+        "expectedEventId": "event-after-midnight",
+        "expectedDayLabel": "tomorrow",
+        "expectedTriggerTimeISO": "2024-03-16T00:05:00-04:00"
+      }
+    },
+    {
+      "id": "V024_negative_offset_timezone",
+      "description": "Timezone with negative offset (west of UTC)",
+      "timezone": "Pacific/Honolulu",
+      "referenceTimeISO": "2024-03-15T10:00:00-10:00",
+      "triggerLeadTimeMinutes": 0,
+      "lookaheadDays": 7,
+      "events": [
+        {
+          "id": "event-hawaii",
+          "startTimeISO": "2024-03-15T14:00:00-10:00"
+        }
+      ],
+      "skipEventIds": [],
+      "expected": {
+        "expectedEventId": "event-hawaii",
+        "expectedDayLabel": "today",
+        "expectedTriggerTimeISO": "2024-03-15T14:00:00-10:00"
+      }
+    },
+    {
+      "id": "V025_positive_offset_timezone",
+      "description": "Timezone with large positive offset (east of UTC)",
+      "timezone": "Pacific/Auckland",
+      "referenceTimeISO": "2024-03-15T10:00:00+13:00",
+      "triggerLeadTimeMinutes": 0,
+      "lookaheadDays": 7,
+      "events": [
+        {
+          "id": "event-nz",
+          "startTimeISO": "2024-03-15T14:00:00+13:00"
+        }
+      ],
+      "skipEventIds": [],
+      "expected": {
+        "expectedEventId": "event-nz",
+        "expectedDayLabel": "today",
+        "expectedTriggerTimeISO": "2024-03-15T14:00:00+13:00"
+      }
+    }
+  ]
+}

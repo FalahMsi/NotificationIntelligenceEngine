@@ -1,0 +1,40 @@
+{
+  "configurations" : [
+    {
+      "id" : "A1B2C3D4-E5F6-7890-ABCD-EF1234567890",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:Nubti.xcodeproj",
+          "identifier" : "81E030EC2F15160C00EE3FCB",
+          "name" : "Nubti"
+        }
+      ]
+    },
+    "language" : "ar",
+    "region" : "KW",
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Nubti.xcodeproj",
+      "identifier" : "81E030EC2F15160C00EE3FCB",
+      "name" : "Nubti"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Nubti.xcodeproj",
+        "identifier" : "8143DF532F28B9C40026D8E2",
+        "name" : "NubtiTests"
+      }
+    }
+  ],
+  "version" : 1
+}

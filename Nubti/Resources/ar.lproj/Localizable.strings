@@ -1,0 +1,157 @@
+/*
+  Localizable.strings (Arabic)
+  Nubti - Kuwait Shift Scheduling App
+
+  IMPORTANT: This file is the single source of truth for Arabic localization.
+  All hardcoded Arabic strings should be migrated here.
+
+  Format: "key" = "value";
+  Use %@ for string substitution, %d for integers, %f for floats
+*/
+
+// MARK: - Common
+
+"common.today" = "اليوم";
+"common.tomorrow" = "غداً";
+"common.later" = "لاحقاً";
+"common.cancel" = "إلغاء";
+"common.confirm" = "تأكيد";
+"common.save" = "حفظ";
+"common.delete" = "حذف";
+"common.edit" = "تعديل";
+"common.done" = "تم";
+"common.close" = "إغلاق";
+"common.back" = "رجوع";
+"common.next" = "التالي";
+"common.previous" = "السابق";
+"common.yes" = "نعم";
+"common.no" = "لا";
+"common.ok" = "موافق";
+"common.error" = "خطأ";
+"common.success" = "نجاح";
+"common.loading" = "جاري التحميل...";
+"common.retry" = "إعادة المحاولة";
+"common.noData" = "لا توجد بيانات";
+
+// MARK: - Shift Phases
+
+"phase.morning" = "دوام صباح";
+"phase.evening" = "دوام عصر";
+"phase.night" = "دوام ليل";
+"phase.off" = "يوم راحة";
+"phase.firstOff" = "راحة (1)";
+"phase.secondOff" = "راحة (2)";
+"phase.weekend" = "عطلة";
+"phase.leave" = "إجازة";
+
+// MARK: - Shift Phase Labels (Short)
+
+"phaseLabel.morning" = "صباحي";
+"phaseLabel.evening" = "مسائي";
+"phaseLabel.night" = "ليلي";
+"phaseLabel.off" = "راحة";
+"phaseLabel.weekend" = "عطلة";
+"phaseLabel.leave" = "إجازة";
+
+// MARK: - Shift Systems
+
+"system.threeShiftTwoOff" = "نظام ٣ أيام بيومين";
+"system.twentyFourFortyEight" = "نظام ٢٤/٤٨ (يوم بيومين)";
+"system.twoWorkFourOff" = "يومين عمل / ٤ أيام راحة (٤٨/٩٦)";
+"system.standardMorning" = "الدوام الصباحي";
+"system.eightHourShift" = "يومين (صبح، عصر، ليل) بـ يومين";
+
+// MARK: - Calendar
+
+"calendar.title" = "التقويم";
+"calendar.today" = "اليوم";
+"calendar.selectYear" = "اختر السنة";
+"calendar.weekdays.sat" = "س";
+"calendar.weekdays.sun" = "ح";
+"calendar.weekdays.mon" = "ن";
+"calendar.weekdays.tue" = "ث";
+"calendar.weekdays.wed" = "ر";
+"calendar.weekdays.thu" = "خ";
+"calendar.weekdays.fri" = "ج";
+
+// MARK: - Today Hero Card
+
+"hero.shiftCompleted" = "الدوام انتهى ✅";
+"hero.startsIn" = "يبدأ خلال";
+"hero.remaining" = "متبقي";
+"hero.dayOff" = "يوم راحة 🌙";
+"hero.onLeave" = "إجازة مسجلة 📋";
+"hero.noData" = "لا توجد بيانات";
+"hero.hours" = "س";
+"hero.minutes" = "د";
+
+// MARK: - Notifications
+
+"notification.shiftStart.title" = "بداية الدوام";
+"notification.shiftStart.body" = "دوامك يبدأ الآن. حان وقت العمل! 💪";
+"notification.shiftEnd.title" = "انتهاء الدوام";
+"notification.shiftEnd.body" = "دوامك انتهى. استمتع بوقتك! 🎉";
+
+"notification.preDay.title" = "تذكير بالدوام";
+"notification.preDay.bodyToday" = "اليوم لديك دوام %@ يبدأ الساعة %@.";
+"notification.preDay.bodyTomorrow" = "غداً لديك دوام %@ يبدأ الساعة %@.";
+
+"notification.punchIn.title" = "تذكير بالبصمة";
+"notification.punchIn.body" = "لا تنسَ بصمة الحضور! 👆";
+"notification.punchOut.title" = "تذكير بالبصمة";
+"notification.punchOut.body" = "لا تنسَ بصمة الانصراف! 👋";
+
+"notification.test.title" = "إشعار تجريبي";
+"notification.test.body" = "الإشعارات تعمل بشكل صحيح! ✅";
+
+// MARK: - Settings
+
+"settings.title" = "الإعدادات";
+"settings.notifications" = "الإشعارات";
+"settings.language" = "اللغة";
+"settings.shiftSystem" = "نظام النوبات";
+"settings.about" = "عن التطبيق";
+
+// MARK: - Manual Leave
+
+"leave.title" = "الإجازات";
+"leave.addNew" = "إضافة إجازة";
+"leave.startDate" = "تاريخ البداية";
+"leave.endDate" = "تاريخ النهاية";
+"leave.type" = "نوع الإجازة";
+"leave.notes" = "ملاحظات";
+"leave.deleteConfirm" = "هل تريد حذف هذه الإجازة؟";
+
+// MARK: - Shift Verification Wizard
+
+"wizard.title" = "التحقق من جدول النوبات";
+"wizard.message" = "جدول نوبتك يحتاج للتحقق. ما هي نوبتك اليوم؟";
+"wizard.confirm" = "تأكيد";
+"wizard.later" = "لاحقاً";
+
+// MARK: - Errors
+
+"error.generic" = "حدث خطأ. يرجى المحاولة مرة أخرى.";
+"error.noPermission" = "لا توجد صلاحية للإشعارات";
+"error.networkError" = "خطأ في الاتصال";
+"error.dataCorruption" = "تلف في البيانات";
+
+// MARK: - Holidays
+
+"holiday.nationalDay" = "اليوم الوطني";
+"holiday.liberationDay" = "يوم التحرير";
+"holiday.newYear" = "رأس السنة الميلادية";
+"holiday.eidFitr" = "عيد الفطر";
+"holiday.eidAdha" = "عيد الأضحى";
+"holiday.islamicNewYear" = "رأس السنة الهجرية";
+"holiday.prophetBirthday" = "المولد النبوي";
+"holiday.israMiraj" = "الإسراء والمعراج";
+
+// MARK: - Activity Log Messages
+
+"log.manualOverrideSet" = "تم تعديل %@ إلى %@";
+"log.manualOverrideCleared" = "تم إلغاء تعديل %@";
+"log.notificationScheduled" = "تم جدولة الإشعارات";
+"log.notificationCancelled" = "تم إلغاء الإشعارات";
+"log.dataRecovered" = "تم استرداد البيانات";
+"log.dataMigrated" = "تم ترحيل البيانات من الإصدار %d إلى %d";
