@@ -385,6 +385,11 @@ The library has been validated against 25 comprehensive test vectors covering:
 - Skip predicate filtering
 - Lookahead window enforcement
 
+## Status
+
+This repository is currently **private** and under active internal use.
+Public availability and package distribution will be announced later.
+
 ## Changelog
 
 ### 1.0.0
