@@ -32,7 +32,7 @@ export interface NIEvent {
   readonly startTime: Date;
 
   /** When the event ends (optional) */
-  readonly endTime?: Date;
+  readonly endTime?: Date | undefined;
 
   /** Human-readable label for the event (optional) */
   readonly label?: string;
@@ -65,14 +65,14 @@ export interface NIResolverConfig {
    *
    * Events with `startTime` beyond `referenceTime + lookaheadDays` are not considered.
    */
-  readonly lookaheadDays?: number;
+  readonly lookaheadDays?: number | undefined;
 
   /**
    * Minutes before the event start time to calculate the trigger time. Default is 0.
    *
    * Formula: `triggerTime = event.startTime - triggerLeadTimeMinutes`
    */
-  readonly triggerLeadTimeMinutes?: number;
+  readonly triggerLeadTimeMinutes?: number | undefined;
 
   /**
    * BCP-47 locale identifier (optional).
@@ -88,7 +88,7 @@ export interface NIResolverConfig {
    * If this returns `true` for an event, that event will not be considered
    * for selection, even if it would otherwise be the next upcoming event.
    */
-  readonly skipPredicate?: (event: NIEvent) => boolean;
+  readonly skipPredicate?: ((event: NIEvent) => boolean) | undefined;
 }
 
 /**
