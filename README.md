@@ -390,6 +390,25 @@ The library has been validated against 25 comprehensive test vectors covering:
 This repository is currently **private** and under active internal use.
 Public availability and package distribution will be announced later.
 
+
+## Contact & Commercial Use
+
+This library is open-source under the MIT License and is free to use in commercial projects.
+
+For:
+- Commercial licensing discussions
+- Enterprise support
+- Customization or consulting
+- Integration guidance for large-scale systems
+
+You can contact the author directly:
+
+📧 Email: info.alharbi94@gmail.com  
+👤 GitHub: https://github.com/FalahMsi
+
+The Notification Intelligence Engine was extracted from a real-world production system and the author is available for professional collaboration.
+
+
 ## Changelog
 
 ### 1.0.0
