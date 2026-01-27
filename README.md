@@ -2,6 +2,39 @@
 
 A cross-platform library for deterministic event resolution and notification timing calculations.
 
+## Quick Start (1 minute)
+
+**What it does:**  
+Given a list of events and a reference time, NIE deterministically answers:
+> *What is the next upcoming event, and when should I trigger a notification?*
+
+### Swift (iOS)
+
+```swift
+import NotificationIntelligence
+
+let events = [
+    NIEvent(
+        id: "shift-1",
+        startTime: Date(timeIntervalSince1970: 1710518400),
+        label: "Night Shift"
+    )
+]
+
+let config = NIResolverConfig(
+    timezone: TimeZone.current,
+    triggerLeadTimeMinutes: 30
+)
+
+if let result = NIResolver.resolveUpcomingEvent(
+    referenceTime: Date(),
+    events: events,
+    config: config
+) {
+    print(result.dayLabel)      // today / tomorrow / later
+    print(result.triggerTime)   // when to notify
+}
+
 **Designed for production scheduling systems.** Used in real-world enterprise scheduling contexts where correctness and cross-platform consistency are critical.
 
 ---
