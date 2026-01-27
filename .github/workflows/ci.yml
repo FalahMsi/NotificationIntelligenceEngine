@@ -1,0 +1,132 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  # ============================================
+  # Swift Package Tests
+  # ============================================
+  swift:
+    name: Swift Tests
+    runs-on: macos-14
+    defaults:
+      run:
+        working-directory: Swift
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Swift
+        uses: swift-actions/setup-swift@v2
+        with:
+          swift-version: '5.9'
+
+      - name: Build
+        run: swift build -v
+
+      - name: Build (Strict Concurrency)
+        run: swift build -Xswiftc -strict-concurrency=complete
+
+      - name: Run Tests
+        run: swift test -v
+
+  # ============================================
+  # TypeScript Tests
+  # ============================================
+  typescript:
+    name: TypeScript Tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: TypeScript
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: TypeScript/package-lock.json
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Type Check
+        run: npx tsc --noEmit
+
+      - name: Run Tests
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+  # ============================================
+  # Kotlin Tests (Deferred)
+  # ============================================
+  # NOTE: Kotlin CI is intentionally deferred.
+  # The Kotlin implementation is complete and tested locally,
+  # but CI requires additional Gradle/JDK setup.
+  #
+  # To enable Kotlin CI, uncomment the following job:
+  #
+  # kotlin:
+  #   name: Kotlin Tests
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: Kotlin
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+  #
+  #     - name: Setup JDK
+  #       uses: actions/setup-java@v4
+  #       with:
+  #         java-version: '17'
+  #         distribution: 'temurin'
+  #
+  #     - name: Setup Gradle
+  #       uses: gradle/actions/setup-gradle@v3
+  #
+  #     - name: Run Tests
+  #       run: ./gradlew test
+
+  # ============================================
+  # Test Vector Integrity Check
+  # ============================================
+  vector-integrity:
+    name: Test Vector Integrity
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify Root Vector Exists
+        run: test -f test-vectors.json
+
+      - name: Verify Swift Vector Copy
+        run: |
+          diff test-vectors.json Swift/Tests/NotificationIntelligenceTests/test-vectors.json
+
+      - name: Verify Kotlin Vector Copy
+        run: |
+          diff test-vectors.json Kotlin/src/commonTest/resources/test-vectors.json
+
+      - name: Validate JSON Syntax
+        run: |
+          python3 -c "import json; json.load(open('test-vectors.json'))"
+
+      - name: Count Test Vectors
+        run: |
+          COUNT=$(python3 -c "import json; print(len(json.load(open('test-vectors.json'))['vectors']))")
+          echo "Test vector count: $COUNT"
+          if [ "$COUNT" -lt 25 ]; then
+            echo "ERROR: Expected at least 25 test vectors"
+            exit 1
+          fi
