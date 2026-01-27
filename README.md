@@ -1,5 +1,5 @@
 # Notification Intelligence Engine (NIE)
-
+> A deterministic, cross-platform engine for resolving the next upcoming event and notification trigger time — built for production scheduling systems.
 A cross-platform library for deterministic event resolution and notification timing calculations.
 
 ## Quick Start (1 minute)
